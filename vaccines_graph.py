@@ -12,6 +12,7 @@ with open("last_run.txt", "r") as f:
         print("Already done today")
         sys.exit(0)
 
+START_DATE = datetime.datetime.strptime("2021-01-10", "%Y-%m-%d")
 
 vaccines = pd.read_csv("https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&metric=cumPeopleVaccinatedFirstDoseByPublishDate&metric=cumPeopleVaccinatedSecondDoseByPublishDate&metric=newPeopleVaccinatedFirstDoseByPublishDate&metric=newPeopleVaccinatedSecondDoseByPublishDate&format=csv")
 
@@ -38,11 +39,11 @@ plt.bar(list(vaccine_totals.index.get_level_values("date")), height = vaccines.x
 plt.bar(list(vaccine_totals.index.get_level_values("date")), height = vaccines.xs("total", level=1)[["newPeopleVaccinatedSecondDoseByPublishDate"]].values.flatten(), fc=(.2, .2, 1, 1), label="Second Doses")
 plt.plot(mvg_avg.xs("total", level=1)[["total_new"]], color="orange", label="Moving Avg (Total Doses)")
 plt.plot(mvg_avg.xs("total", level=1)[["newPeopleVaccinatedSecondDoseByPublishDate"]], color="red", label="Moving Avg (2nd Dose)")
-plt.xlim("2021-01-10", datetime.date.today())
-plt.hlines(1*10**6/7, "2021-01-10", datetime.date.today(), color="black", linestyle=":")
-plt.hlines(2*10**6/7, "2021-01-10", datetime.date.today(), color="black", linestyle=":")
-plt.hlines(3*10**6/7, "2021-01-10", datetime.date.today(), color="black", linestyle=":")
-plt.hlines(4*10**6/7, "2021-01-10", datetime.date.today(), color="black", linestyle=":")
+plt.xlim(START_DATE, datetime.date.today())
+plt.hlines(1*10**6/7, START_DATE, datetime.date.today(), color="black", linestyle=":")
+plt.hlines(2*10**6/7, START_DATE, datetime.date.today(), color="black", linestyle=":")
+plt.hlines(3*10**6/7, START_DATE, datetime.date.today(), color="black", linestyle=":")
+plt.hlines(4*10**6/7, START_DATE, datetime.date.today(), color="black", linestyle=":")
 
 plt.title("Vaccines by Publish Date")
 plt.legend()
