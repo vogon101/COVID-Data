@@ -8,6 +8,7 @@ import sys
 with open("last_run.txt", "r") as f:
     d = f.read()
     print(d)
+    print(datetime.date.today())
     if d == str(datetime.date.today()):
         print("Already done today")
         sys.exit(0)
@@ -45,7 +46,7 @@ plt.hlines(2*10**6/7, START_DATE, datetime.date.today(), color="black", linestyl
 plt.hlines(3*10**6/7, START_DATE, datetime.date.today(), color="black", linestyle=":")
 plt.hlines(4*10**6/7, START_DATE, datetime.date.today(), color="black", linestyle=":")
 
-plt.title("Vaccines by Publish Date")
+plt.title(f"Vaccines by Publish Date ({datetime.date.today()})")
 plt.legend()
 
 plt.savefig("vaccines.png", pad_inches=0.05, transparent=False, dpi=600)
