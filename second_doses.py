@@ -21,6 +21,5 @@ for wk_delay in wk_delays:
     plt.plot(vts["E"], label=wk_delay, linestyle=":" if wk_delay != 12 else "-")
 plt.plot(vts["cumPeopleVaccinatedSecondDoseByPublishDate"])
 plt.legend()
-plt.show()
 
 plt.savefig("seconds.png", pad_inches=0.05, transparent=False, dpi=600)
