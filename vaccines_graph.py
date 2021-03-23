@@ -3,6 +3,7 @@ import matplotlib
 from matplotlib import pyplot as plt
 import numpy as np
 import datetime
+import datetime as dt
 import sys
 
 with open("last_run.txt", "r") as f:
@@ -14,6 +15,8 @@ with open("last_run.txt", "r") as f:
         sys.exit(0)
 
 START_DATE = datetime.datetime.strptime("2021-01-10", "%Y-%m-%d")
+MONDAY  = datetime.datetime.strptime("2021-01-11", "%Y-%m-%d")
+
 
 vaccines = pd.read_csv("https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&metric=cumPeopleVaccinatedFirstDoseByPublishDate&metric=cumPeopleVaccinatedSecondDoseByPublishDate&metric=newPeopleVaccinatedFirstDoseByPublishDate&metric=newPeopleVaccinatedSecondDoseByPublishDate&format=csv")
 
@@ -35,6 +38,7 @@ mvg_avg = vaccines.rolling(7).sum()/7
 fig = plt.figure(figsize=(15,10))
 ax = fig.add_subplot(111)
 
+vmax = np.max(vaccines.xs("total", level=1)[["total_new"]].values.flatten()) * 1.075
 
 plt.bar(list(vaccine_totals.index.get_level_values("date")), height = vaccines.xs("total", level=1)[["total_new"]].values.flatten(), fc=(.1, .2, 1, .3), label="Total Doses")
 plt.bar(list(vaccine_totals.index.get_level_values("date")), height = vaccines.xs("total", level=1)[["newPeopleVaccinatedSecondDoseByPublishDate"]].values.flatten(), fc=(.2, .2, 1, 1), label="Second Doses")
@@ -43,8 +47,17 @@ plt.plot(mvg_avg.xs("total", level=1)[["newPeopleVaccinatedSecondDoseByPublishDa
 plt.xlim(START_DATE, datetime.date.today())
 # plt.hlines(1*10**6/7, START_DATE, datetime.date.today(), color="black", linestyle=":")
 # plt.hlines(2*10**6/7, START_DATE, datetime.date.today(), color="black", linestyle=":")
-plt.hlines(3*10**6/7, START_DATE, datetime.date.today(), color="black", linestyle=":", label="3 million /wk")
-#plt.hlines(4*10**6/7, START_DATE, datetime.date.today(), color="black", linestyle=":")
+#plt.hlines(3*10**6/7, START_DATE, datetime.date.today(), color="black", linestyle=":", label="3 million /wk")
+
+plt.hlines(4*10**6/7, START_DATE, datetime.date.today(), color="black", linestyle=":", label="4 million /wk")
+plt.hlines(5*10**6/7, START_DATE, datetime.date.today(), color="grey", linestyle=":", label="5 million /wk")
+
+plt.ylim(0, vmax)
+
+d = MONDAY.date()
+while d <= dt.date.today():
+        plt.vlines([d], 0, vmax, color="grey", alpha=0.25)
+        d += dt.timedelta(days=7)
 
 plt.title(f"Vaccines by Publish Date ({datetime.date.today()})")
 plt.legend()
