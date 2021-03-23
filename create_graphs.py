@@ -21,3 +21,5 @@ import second_doses
 
 with open("last_run.txt", "w") as f:
     f.write(str(datetime.date.today()))
+
+print("Complete")
