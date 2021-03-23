@@ -18,8 +18,8 @@ for wk_delay in wk_delays:
 
     vts = vts.reindex(idx)
     vts.loc[:, "E"] = expected_2nds.loc[:, "cumPeopleVaccinatedFirstDoseByPublishDate"]
-    plt.plot(vts["E"], label=wk_delay, linestyle=":" if wk_delay != 12 else "-")
-plt.plot(vts["cumPeopleVaccinatedSecondDoseByPublishDate"])
+    plt.plot(vts["E"], label=f"Cumulative First Doses {wk_delay} weeks injection", linestyle=":" if wk_delay != 12 else "-", lw=1 if wk_delay!=12 else 3)
+plt.plot(vts["cumPeopleVaccinatedSecondDoseByPublishDate"], label="Cumulative Second Doses", lw=3)
 plt.legend()
-
+plt.title("Second Dose Progress by Publish Date")
 plt.savefig("seconds.png", pad_inches=0.05, transparent=False, dpi=600)
