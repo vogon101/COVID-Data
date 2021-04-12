@@ -2,6 +2,7 @@ import datetime
 import sys
 import pandas as pd
 
+"""
 with open("last_run.txt", "r") as f:
     d = f.read()
     print(d)
@@ -9,10 +10,10 @@ with open("last_run.txt", "r") as f:
     if d == str(datetime.date.today()):
         print("Already done today")
         sys.exit(0)
-
+"""
 vaccines = pd.read_csv(
-    "https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&metric=cumPeopleVaccinatedFirstDoseByPublishDate&metric=cumPeopleVaccinatedSecondDoseByPublishDate&metric=newPeopleVaccinatedFirstDoseByPublishDate&metric=newPeopleVaccinatedSecondDoseByPublishDate&format=csv"
-)
+"https://api.coronavirus.data.gov.uk/v2/data?areaType=overview&metric=cumPeopleVaccinatedFirstDoseByPublishDate&metric=cumPeopleVaccinatedSecondDoseByPublishDate&metric=newPeopleVaccinatedFirstDoseByPublishDate&metric=newPeopleVaccinatedSecondDoseByPublishDate&format=csv"
+                )
 
 vaccines.to_csv("latest.csv")
 
