@@ -17,7 +17,8 @@ tmp = tmp.reset_index()
 
 vaccines = vaccines.append(tmp)
 vaccines = vaccines.set_index(["date", "areaName"])
-vaccines["total_new"] = vaccines["newPeopleVaccinatedFirstDoseByPublishDate"] + vaccines["newPeopleVaccinatedSecondDoseByPublishDate"]
+vaccines["total_new"] = vaccines["newPeopleVaccinatedFirstDoseByPublishDate"] + vaccines["newPeopleVaccinatedSecondDoseByPublishDate"] + vaccines["newPeopleVaccinatedThirdInjectionByPublishDate"]
+vaccines["seconds_and_thirds"] = vaccines["newPeopleVaccinatedSecondDoseByPublishDate"] + vaccines["newPeopleVaccinatedThirdInjectionByPublishDate"]
 
 vaccine_totals = vaccines.xs("total", level=1).copy()
 mvg_avg = vaccines.rolling(7).sum()/7

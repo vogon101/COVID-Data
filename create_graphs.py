@@ -15,6 +15,17 @@ vaccines = pd.read_csv(
 "https://api.coronavirus.data.gov.uk/v2/data?areaType=overview&metric=cumPeopleVaccinatedFirstDoseByPublishDate&metric=cumPeopleVaccinatedSecondDoseByPublishDate&metric=newPeopleVaccinatedFirstDoseByPublishDate&metric=newPeopleVaccinatedSecondDoseByPublishDate&format=csv"
                 )
 
+vaccines_thirds = pd.read_csv(
+    "https://api.coronavirus.data.gov.uk/v2/data?areaType=overview&metric=cumPeopleVaccinatedThirdInjectionByPublishDate&metric=newPeopleVaccinatedThirdInjectionByPublishDate&metric=cumPeopleVaccinatedFirstDoseByPublishDate&format=csv"
+)
+
+vaccines_thirds.info()
+
+vaccines["cumPeopleVaccinatedThirdInjectionByPublishDate"] = vaccines_thirds["cumPeopleVaccinatedThirdInjectionByPublishDate"]
+vaccines["newPeopleVaccinatedThirdInjectionByPublishDate"] = vaccines_thirds["newPeopleVaccinatedThirdInjectionByPublishDate"]
+
+vaccines.info()
+
 vaccines.to_csv("latest.csv")
 
 import vaccines_graph
