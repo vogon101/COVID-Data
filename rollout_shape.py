@@ -59,7 +59,12 @@ ax.set_ylabel("Doses (10,000,000)")
 
 plt.xlim(start_date, end_date)
 
-plt.title("Booster Dose Progress by Publish Date")
+title_string = "Vaccine Rollout by Dose"
+subtitle_string = f"Aligned to point of {int(SHIFT_TO / 1e6):d} million doses delivered."
+
+# plt.title("Vaccine Rollout by Dose")
+plt.suptitle(title_string, y=0.95, fontsize=18)
+plt.title(subtitle_string, fontsize=10)
 
 plt.legend(loc=0)
 # ax.legend(loc=1)
