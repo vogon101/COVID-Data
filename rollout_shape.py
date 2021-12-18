@@ -47,12 +47,13 @@ ax = fig.add_subplot(111)
 plt.hlines(SHIFT_TO, start_date, end_date, color="grey", linestyle=":")
 plt.axvline(date3, color="grey", linestyle=":")
 
-ax.plot(vts["cumE_2"], linestyle="-", lw=3, color="red", alpha=0.5,
+ax.plot(vts["cumE_2"], linestyle="-", lw=3, color="red", alpha=0.75,
          label=f"Cum. First Doses  (Shifted {shift_1:.2f} weeks)")
-ax.plot(vts["cumE_3"], linestyle="-", lw=3, color="green", alpha=0.5,
+ax.plot(vts["cumE_3"], linestyle="-", lw=3, color="green", alpha=0.75,
          label=f"Cum. Second Doses (Shifted {shift_2:.2f} weeks)")
 
-ax.plot(vts["cumPeopleVaccinatedThirdInjectionByPublishDate"], label="Cumulative Third Doses", lw=3, color="darkblue")
+ax.plot(vts["cumPeopleVaccinatedThirdInjectionByPublishDate"], label="Cumulative Third Doses", lw=3,
+        color="darkblue", alpha=0.75)
 
 ax.set_xlabel("Date")
 ax.set_ylabel("Doses (10,000,000)")
