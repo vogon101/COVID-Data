@@ -67,4 +67,4 @@ plt.title("Booster Dose Progress by Publish Date")
 
 plt.legend(loc=0)
 ax.legend(loc=1)
-plt.savefig("thirds.png", pad_inches=0.05, transparent=False, dpi=600)
+plt.savefig("out/thirds.png", pad_inches=0.05, transparent=False, dpi=600)

@@ -44,5 +44,5 @@ make_graph(START_DATE + datetime.timedelta(days=30*7), MONDAY+ datetime.timedelt
 plt.title(f"Vaccines by Publish Date ({datetime.date.today()})")
 plt.legend()
 
-plt.savefig("vaccines_less.png", pad_inches=0.05, transparent=False, dpi=600)
+plt.savefig("out/vaccines_less.png", pad_inches=0.05, transparent=False, dpi=600)
 

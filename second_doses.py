@@ -50,4 +50,4 @@ sax.plot(vts["cumPeopleVaccinatedSecondDoseByPublishDate"], label="Cumulative Se
 plt.legend(loc=1)
 ax.legend(loc=0)
 plt.title("Second Dose Progress by Publish Date")
-plt.savefig("seconds.png", pad_inches=0.05, transparent=False, dpi=600)
+plt.savefig("out/seconds.png", pad_inches=0.05, transparent=False, dpi=600)
