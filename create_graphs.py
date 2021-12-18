@@ -31,6 +31,8 @@ vaccines.to_csv("latest.csv")
 import vaccines_graph
 import second_doses
 import third_doses
+import rollout_shape
+
 
 with open("last_run.txt", "w") as f:
     f.write(str(datetime.date.today()))
