@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 from vaccines_data import *
 
+print("Rollout Shape Graph")
+
 SHIFT_TO = 5e6
 vts = vaccine_totals.copy()
 
@@ -21,8 +23,8 @@ date1 = get_offset("cumPeopleVaccinatedFirstDoseByPublishDate")
 
 shift_2 = -((date2 - date3).total_seconds() / (60 * 60 * 24 * 7))
 shift_1 = -((date1 - date3).total_seconds() / (60 * 60 * 24 * 7))
-print(shift_2)
-print(shift_1)
+print(f"Shifting second doses by {shift_2:.2f} weeks")
+print(f"Shifting second doses by {shift_1:.2f} weeks")
 
 offset = 7*10
 
@@ -36,7 +38,6 @@ expected_1sts = vts.shift(shift_1 * 7, "infer")
 
 vts.loc[:, "cumE_3"] = expected_2nds.loc[:, "cumPeopleVaccinatedSecondDoseByPublishDate"]
 vts.loc[:, "cumE_2"] = expected_1sts.loc[:, "cumPeopleVaccinatedFirstDoseByPublishDate"]
-vts.info()
 
 start_date = dt.date.today() - dt.timedelta(days=int(26 * 7))
 end_date = dt.date.today() + dt.timedelta(days=int(shift_2 * 7 + 2))

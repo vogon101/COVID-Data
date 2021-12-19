@@ -48,7 +48,7 @@ expected_1sts = vts.shift(wk_delay_1st3rd * 7, "infer")
 
 vts.loc[:, "cumE_3"] = expected_2nds.loc[:, "cumPeopleVaccinatedSecondDoseByPublishDate"]
 vts.loc[:, "cumE_2"] = expected_1sts.loc[:, "cumPeopleVaccinatedFirstDoseByPublishDate"]
-vts.info()
+
 vts = pd.concat([vts, gaps_df_2nd3rd], axis=1)
 
 

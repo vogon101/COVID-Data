@@ -1,15 +1,17 @@
 import datetime as dt
 import pandas as pd
-import numpy as np
 
 START_DATE = dt.datetime.strptime("2021-01-10", "%Y-%m-%d")
 MONDAY = dt.datetime.strptime("2021-01-11", "%Y-%m-%d")
 
+# TODO: This shouldn't re-run for each graph
 vaccines = pd.read_csv("latest.csv")
+vaccines_demos = pd.read_csv("demos.csv")
 
 vaccines = vaccines.drop(["areaCode", "areaType"], axis=1)
 vaccines["date"] = pd.to_datetime(vaccines['date'])
-vaccines.info()
+
+vaccines_demos["date"] = pd.to_datetime(vaccines_demos["date"])
 
 tmp = vaccines.groupby("date").sum()
 tmp["areaName"] = "total"

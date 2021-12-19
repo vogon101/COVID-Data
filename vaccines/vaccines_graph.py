@@ -2,10 +2,11 @@ from matplotlib import pyplot as plt
 import datetime
 from vaccines_data import *
 
+print("Vaccine Totals Graphs")
 
 max_value = np.max(vaccines.xs("total", level=1)[["total_new"]].values.flatten()) * 1.075
 
-print(vaccines["total_new"][-1])
+print(f"Latest total {vaccines['total_new'][-1]}")
 
 def make_graph(start_date, monday, vmax):
         fig = plt.figure(figsize=(15,10))

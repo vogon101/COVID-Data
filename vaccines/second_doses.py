@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 
 from vaccines_data import *
 
+print("Second Doses Graph")
 
 fig = plt.figure(figsize=(15,10))
 ax = fig.add_subplot(111)
@@ -38,7 +39,7 @@ expected_2nds = vts.shift(wk_delay * 7, "infer")
 
 vts.loc[:, "E"] = expected_2nds.loc[:, "newPeopleVaccinatedFirstDoseByPublishDate"]
 vts.loc[:, "cumE"] = expected_2nds.loc[:, "cumPeopleVaccinatedFirstDoseByPublishDate"]
-vts.info()
+
 vts = pd.concat([vts, gaps_df], axis=1)
 
 sax.plot(vts["cumE"], linestyle="-", lw=3, color="darkslategrey", alpha=0.5,
