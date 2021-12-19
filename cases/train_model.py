@@ -84,21 +84,25 @@ plt.axvline(0, color="grey", linestyle=":")
 plt.axhline(1, color="grey", linestyle=":")
 plt.savefig("out/model_scores.png")
 
-fig = plt.figure(figsize=(15,10))
-ax = fig.add_subplot(111)
-
-plt.scatter(back_data.index, back_data, marker="x", color="b", label="Actual Cases")
-plt.scatter(unconfirmed.index, unconfirmed, marker="x", color="g", label="Unconfirmed Case Data")
-plt.scatter(preds_dates, preds, marker="o", edgecolors="r", facecolors="none", label="Predictions")
 
 monday = dt.date.today() + dt.timedelta(days=-dt.date.today().weekday(), weeks=1)
 
 errors_lower = [float(p - 3 * s) for p, s in zip(preds, preds_std)]
 errors_upper = [float(p + 3 * s) for p, s in zip(preds, preds_std)]
 
+fig = plt.figure(figsize=(15,10))
+ax = fig.add_subplot(111)
+
 plt.fill_between(preds_dates, errors_lower, errors_upper, color="grey", alpha=0.5, label="± 3sd")
 plt.axvline(monday, color="darkgrey", alpha=0.5)
 plt.axvline(monday - dt.timedelta(weeks=1), color="darkgrey", alpha=0.5)
+
+plt.scatter(back_data.index, back_data, marker="x", color="b", label="Actual Cases")
+plt.scatter(unconfirmed.index, unconfirmed, marker="x", color="g", label="Unconfirmed Case Data")
+plt.scatter(preds_dates, preds, marker="o", edgecolors="r", facecolors="none", label="Predictions")
+
+
+
 
 plt.legend()
 date = dt.date.today()
