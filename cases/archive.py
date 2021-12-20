@@ -19,6 +19,6 @@ def update_archive():
         try:
             df = pd.read_csv(URL)
             df.to_csv(f"{ARCHIVE_PATH}/{date.year}-{date.month}-{date.day}")
-            time.sleep(11)
+            time.sleep(2)
         except HTTPError as e:
             print(e)

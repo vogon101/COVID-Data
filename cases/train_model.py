@@ -1,16 +1,14 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import datetime as dt
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import BayesianRidge
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import mean_absolute_percentage_error
 from cases.model_settings import *
 
 
 def get_archive_data():
-    data = pd.read_csv("cases/training_data.csv")
-    features = data[[f"{i}" for i in range(BACK_DAYS + PRED_DAYS + 1)]]
+    data = pd.read_csv(TRAINING_DATA_PATH)
+    features = data[[f"{i}" for i in range(BACK_DAYS + INFER_DAYS + PUB_DAYS + 3)]]
     targets = data[[f"t_{i}" for i in range(PRED_DAYS + INFER_DAYS + 1)]]
     print(features)
     print(targets)
@@ -26,7 +24,7 @@ def get_archive_data():
 
 
 def train_model(train_features, train_labels):
-    models = [BayesianRidge() for i in range(PRED_DAYS + INFER_DAYS)]
+    models = [MODEL_CONSTRUCTOR() for i in range(PRED_DAYS + INFER_DAYS)]
     for i, model in enumerate(models):
         print(f"Model {i}")
         model.fit(np.array(train_features.values), np.array(train_labels[[f"t_{i}"]]).reshape(-1))
@@ -41,6 +39,7 @@ def evaluate_models(models, test_features, test_labels):
         scores.append(score)
         mean_error = mean_absolute_percentage_error(test_labels[[f"t_{i}"]], model.predict(np.array(test_features)))
         mean_errors.append(1 - mean_error)
+
     print(scores)
     return scores, mean_errors
 
