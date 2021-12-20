@@ -1,8 +1,10 @@
-from urllib.error import HTTPError
-import pandas as pd
 import datetime as dt
 import os
 import time
+from urllib.error import HTTPError
+
+import pandas as pd
+
 from cases.model_settings import ARCHIVE_URL_SCHEME, ARCHIVE_PATH
 
 
