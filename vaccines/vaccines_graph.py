@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt
 import datetime
 from vaccines_data import *
+import numpy as np
 
 print("Vaccine Totals Graphs")
 
