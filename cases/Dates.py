@@ -17,7 +17,7 @@ class Dates:
     publish_end_date: dt.datetime
 
     def prediction_dates(self) -> List[dt.datetime]:
-        return [self.data_start_date - dt.timedelta(days=i) for i in range(-INFER_DAYS, PRED_DAYS)]
+        return [self.data_start_date + dt.timedelta(days=i) for i in range(PRED_DAYS, -INFER_DAYS, -1)]
 
 
 def calculate_dates(spec: pd.DataFrame, pub: pd.DataFrame) -> Dates:

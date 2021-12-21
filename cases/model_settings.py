@@ -1,7 +1,7 @@
 from sklearn.linear_model import ARDRegression
 
 INFER_DAYS = 5
-PRED_DAYS = 5
+PRED_DAYS = 7
 BACK_DAYS = 30
 PUB_DAYS = 30
 TRAINING_DATA_PATH = "cases/trainingdata.csv"

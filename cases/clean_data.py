@@ -19,7 +19,7 @@ def clean_data(path=TRAINING_DATA_PATH):
     latest["date"] = pd.to_datetime(latest["date"])
     latest = latest.set_index(["date"])
 
-    for i in range(15, 400):
+    for i in range(PRED_DAYS + INFER_DAYS + 1, 400):
         date = start_date - dt.timedelta(days=i)
         date_str = f"{date.year}-{date.month}-{date.day}"
         path = f"{ARCHIVE_PATH}/{date_str}"

@@ -22,6 +22,9 @@ def make_graph(preds, preds_std, latest_spec, latest_pub, dates: Dates):
     ).sort_index()
     df_all["mvavg"] = df_all.rolling(window=7)["newCasesBySpecimenDate"].mean()
 
+
+    #TODO: Plot smoothed error area?
+    
     back_data_spec = latest_spec.loc[dates.incomplete_start_date: dates.feature_start_date - dt.timedelta(days=10)]
     back_data_pub = latest_pub.loc[dates.publish_start_date: dates.incomplete_start_date]
     unconfirmed = latest_spec.loc[dates.data_start_date: dates.incomplete_start_date]
@@ -37,6 +40,7 @@ def make_graph(preds, preds_std, latest_spec, latest_pub, dates: Dates):
     plt.fill_between(preds_dates, errors_lower, errors_upper, color="grey", alpha=0.5, label="± 3sd")
     plt.axvline(monday, color="darkgrey", alpha=0.5)
     plt.axvline(monday - dt.timedelta(weeks=1), color="darkgrey", alpha=0.5)
+    plt.axvline(dt.date.today(), color="green", alpha=0.5, linestyle=":", label="Today")
 
     plt.plot(df_all.loc[dates.feature_start_date - dt.timedelta(days=10):dates.incomplete_start_date]["mvavg"],
              linestyle=":",
