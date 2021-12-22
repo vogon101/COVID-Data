@@ -80,16 +80,19 @@ def create_prediction(model):
     preds, preds_std = predict(model, latest_spec, latest_pub, dates)
     make_graph(preds, preds_std, latest_spec, latest_pub, dates)
 
-    preds_dict = {"date": [dates.data_start_date]}
-    preds_dict.update({i: p for i, p in enumerate(preds)})
+    preds_dict = {"date": [pd.to_datetime(dates.data_start_date)]}
+
+    preds_dict.update({str(i): p for i, p in enumerate(preds)})
 
     this_predictions_df = pd.DataFrame(preds_dict)
-    this_predictions_df.set_index(["date"])
+
+    this_predictions_df = this_predictions_df.set_index(["date"])
 
     predictions_df = this_predictions_df
     if os.path.exists(PREDICTIONS_CSV_PATH):
         predictions_df = pd.read_csv(PREDICTIONS_CSV_PATH)
-        predictions_df.set_index(["date"])
+        predictions_df["date"] = pd.to_datetime(predictions_df["date"])
+        predictions_df = predictions_df.set_index(["date"])
         predictions_df = predictions_df.append(this_predictions_df)
         predictions_df = predictions_df[~predictions_df.index.duplicated(keep="first")]
 
