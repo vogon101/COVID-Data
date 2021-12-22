@@ -1,4 +1,5 @@
 import datetime as dt
+import os.path
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -6,6 +7,7 @@ import pandas as pd
 
 from cases.Dates import Dates, calculate_dates
 from cases.data import get_features, get_latest_data
+from cases.model_settings import PREDICTIONS_CSV_PATH
 
 
 def predict(model, latest_spec, latest_pub, dates: Dates):
@@ -24,7 +26,7 @@ def make_graph(preds, preds_std, latest_spec, latest_pub, dates: Dates):
 
 
     #TODO: Plot smoothed error area?
-    
+
     back_data_spec = latest_spec.loc[dates.incomplete_start_date: dates.feature_start_date - dt.timedelta(days=10)]
     back_data_pub = latest_pub.loc[dates.publish_start_date: dates.incomplete_start_date]
     unconfirmed = latest_spec.loc[dates.data_start_date: dates.incomplete_start_date]
@@ -77,3 +79,18 @@ def create_prediction(model):
     dates = calculate_dates(latest_spec, latest_pub)
     preds, preds_std = predict(model, latest_spec, latest_pub, dates)
     make_graph(preds, preds_std, latest_spec, latest_pub, dates)
+
+    preds_dict = {"date": [dates.data_start_date]}
+    preds_dict.update({i: p for i, p in enumerate(preds)})
+
+    this_predictions_df = pd.DataFrame(preds_dict)
+    this_predictions_df.set_index(["date"])
+
+    predictions_df = this_predictions_df
+    if os.path.exists(PREDICTIONS_CSV_PATH):
+        predictions_df = pd.read_csv(PREDICTIONS_CSV_PATH)
+        predictions_df.set_index(["date"])
+        predictions_df = predictions_df.append(this_predictions_df)
+        predictions_df = predictions_df[~predictions_df.index.duplicated(keep="first")]
+
+    predictions_df.to_csv(PREDICTIONS_CSV_PATH)

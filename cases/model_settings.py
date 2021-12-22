@@ -1,4 +1,4 @@
-from sklearn.linear_model import ARDRegression
+from sklearn.linear_model import BayesianRidge
 
 INFER_DAYS = 5
 PRED_DAYS = 7
@@ -14,4 +14,6 @@ ARCHIVE_DELAY = 11
 
 NORM_VALUE = 60700
 
-MODEL_CONSTRUCTOR = lambda: ARDRegression()
+MODEL_CONSTRUCTOR = lambda: BayesianRidge()
+
+PREDICTIONS_CSV_PATH = "cases/preds.csv"

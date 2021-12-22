@@ -6,10 +6,12 @@ import cases.clean_data
 
 ## Train and run the model
 import cases.train_model
+from cases.CombiModel import CombiModel
 
 from cases.predict import create_prediction
 
 cases.archive.update_archive()
 cases.clean_data.clean_data()
-model = cases.train_model.do_train_model()
+model = CombiModel()
+model = cases.train_model.do_train_model(model)
 create_prediction(model)

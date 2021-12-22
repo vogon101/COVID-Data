@@ -23,8 +23,7 @@ def get_archive_data():
     return data, (train_features, train_labels), (test_features, test_labels)
 
 
-def train_model(train_features, train_labels):
-    model = CombiModel()
+def train_model(train_features, train_labels, model):
     model.fit(train_features, train_labels)
     return model
 
@@ -33,9 +32,9 @@ def evaluate_models(model: CombiModel, test_features, test_labels):
     return model.evaluate(test_features, test_labels)
 
 
-def do_train_model():
+def do_train_model(model):
     data, train, test = get_archive_data()
-    models = train_model(train[0], train[1])
+    models = train_model(train[0], train[1], model)
     scores, mean_errors = evaluate_models(models, test[0], test[1])
 
     fig = plt.figure(figsize=(8, 5))

@@ -4,7 +4,7 @@ import os
 import pandas as pd
 
 from cases.Dates import calculate_dates
-from cases.data import select_features, get_features
+from cases.data import select_features, get_features, get_latest_data
 from cases.model_settings import *
 
 
@@ -12,12 +12,14 @@ def clean_data(path=TRAINING_DATA_PATH):
     start_date = dt.date.today()
 
     data = pd.DataFrame()
-    date = dt.date.today()
-    d = f"{date.year}-{date.month}-{date.day}"
+    # date = dt.date.today()
+    # d = f"{date.year}-{date.month}-{date.day}"
 
-    latest = pd.read_csv(f"{ARCHIVE_PATH}/{d}")
-    latest["date"] = pd.to_datetime(latest["date"])
-    latest = latest.set_index(["date"])
+    latest, _ = get_latest_data()
+
+    # latest = pd.read_csv(f"{ARCHIVE_PATH}/{d}")
+    # latest["date"] = pd.to_datetime(latest["date"])
+    # latest = latest.set_index(["date"])
 
     for i in range(PRED_DAYS + INFER_DAYS + 1, 400):
         date = start_date - dt.timedelta(days=i)

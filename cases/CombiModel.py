@@ -6,8 +6,8 @@ from cases.model_settings import MODEL_CONSTRUCTOR, PRED_DAYS, INFER_DAYS
 
 class CombiModel:
 
-    def __init__(self):
-        self.models = [MODEL_CONSTRUCTOR() for i in range(PRED_DAYS + INFER_DAYS)]
+    def __init__(self, constructor=MODEL_CONSTRUCTOR):
+        self.models = [constructor()for i in range(PRED_DAYS + INFER_DAYS)]
 
     def fit(self, train_features, train_labels):
         for i, model in enumerate(self.models):
